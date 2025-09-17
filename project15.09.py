@@ -17,23 +17,19 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        # Инициализация флагов
         self.current_file = None
         self.duration = 0
         self.start_time = 0
         self.is_paused = False
 
-        # Удаляем кнопку "плей", если есть
         if hasattr(self.ui, "pushButton_4"):
             self.ui.pushButton_4.setParent(None)
 
-        # Название трека по центру
         self.track_label = QLabel("🎵 Нет выбранного файла")
         self.track_label.setAlignment(Qt.AlignCenter)
         self.track_label.setStyleSheet("color: #76c7c0; font-size: 16px; font-weight: bold;")
         self.ui.gridLayout_2.addWidget(self.track_label, 1, 0, 1, self.ui.gridLayout_2.columnCount())
 
-        # Добавим слайдер вручную
         self.ui.progressSlider = QSlider(Qt.Horizontal, self)
         self.ui.progressSlider.setGeometry(20, 530, 660, 20)
         self.ui.progressSlider.setMinimum(0)
@@ -56,7 +52,6 @@ class MainWindow(QMainWindow):
             }
         """)
 
-        # Иконки кнопок
         self.ui.pushButton_5.setIcon(QIcon("icons/backward.png"))
         self.ui.pushButton_5.setText("")
         self.ui.pushButton_5.setIconSize(QtCore.QSize(32, 32))
@@ -69,10 +64,8 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_7.setText("")
         self.ui.pushButton_7.setIconSize(QtCore.QSize(32, 32))
 
-        # Инициализация pygame
         pygame.mixer.init()
 
-        # Таймер
         self.timer = QTimer()
         self.timer.setInterval(1000)
         self.timer.timeout.connect(self.update_progress)
